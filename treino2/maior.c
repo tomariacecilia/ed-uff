@@ -10,7 +10,7 @@ typedef struct sNoA {
 
 
 TNoA *maior(TNoA *no) {
-    while (no != NULL) {
+    while (no->dir != NULL) {
         no = no->dir;
     }
 
