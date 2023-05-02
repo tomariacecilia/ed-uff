@@ -10,22 +10,11 @@ typedef struct sNoA {
 
 
 TNoA *maior(TNoA *no) {
-    int aux,cont = 0;
-    if (no!= NULL){
-        cont++;
-        if (cont==1){
-            aux = no->chave;
-        } else {
-            if (no->chave>aux) {
-                aux = no->chave;
-            }
-        }
-        printf("%c\n",no->chave);
-        profundidade(no->esq);
-        profundidade(no->dir);
+    while (no != NULL) {
+        no = no->dir;
     }
 
-    /////aaaaaaaaaaaaaaaaaaa
+    return no;
 
 }
 
