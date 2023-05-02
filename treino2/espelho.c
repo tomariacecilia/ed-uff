@@ -10,7 +10,14 @@ typedef struct noA {
 } TNoA;
 
 void espelho(TNoA *raiz) {
-    //TODO: Implementar essa funcao
+    TNoA *temp;
+    if (raiz != NULL) {
+        temp = raiz->esq;
+        raiz->esq = raiz->dir;
+        raiz->dir = temp;
+        espelho(raiz->esq);
+        espelho(raiz->dir);
+    }
 }
 
 void imprime(TNoA *nodo, int tab) {
