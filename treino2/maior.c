@@ -13,7 +13,6 @@ TNoA *maior(TNoA *no) {
     while (no->dir != NULL) {
         no = no->dir;
     }
-
     return no;
 
 }

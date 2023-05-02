@@ -14,7 +14,9 @@ typedef struct noA {
  * Funcao deve retornar 1 caso as arvores tenham os mesmos nos (mesmo que em posicoes distintas), e 0 caso contrario
  */
 int mesmos_nos(TNoA *a1, TNoA *a2) {
-    //TODO: Implementar essa funcao
+    while (no != NULL) {
+
+    }
     return 0;
 }
 
@@ -103,7 +105,7 @@ int main (void) {
     scanf("%s", entrada2);
     tam = strlen(entrada2);
     a2 = criaArvore(entrada2 , tam);
-    
+
     printf("%d", mesmos_nos(a1, a2));
 }
 
