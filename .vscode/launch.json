@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/maria/Documents/GitHub/ed-uff",
-      "program": "c:/Users/maria/Documents/GitHub/ed-uff/build/Debug/outDebug",
+      "cwd": "c:/Users/maria/Documents/GitHub/ed-uff/avaliacoes",
+      "program": "c:/Users/maria/Documents/GitHub/ed-uff/avaliacoes/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

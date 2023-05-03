@@ -14,7 +14,6 @@ TNoA *maior(TNoA *no) {
         no = no->dir;
     }
     return no;
-
 }
 
 void imprime(TNoA *nodo, int tab) {
