@@ -13,11 +13,53 @@ typedef struct noA {
 /*
  * Funcao deve retornar 1 caso as arvores tenham os mesmos nos (mesmo que em posicoes distintas), e 0 caso contrario
  */
-int mesmos_nos(TNoA *a1, TNoA *a2) {
-/*     while (no != NULL) {
 
+void bubbleSort(char* v, int n) {
+  int i, j, aux;
+  for(i = n-1; i > 0; i--) {
+    for(j = 0; j < i; j++) {
+      if(v[j] > v[j+1]) {
+        aux = v[j]; v[j] = v[j+1]; v[j+1] = aux;
+      }
     }
-    return 0; */
+  }
+}
+
+void profundidade(char* nos, TNoA* a, int *i) {
+    if (a!= NULL) {
+        (*i)++;
+        nos = realloc(nos, (*i) * sizeof(char));
+        nos[(*i)-1] = a->info;
+        profundidade(nos, a->esq, i);
+        printf(nos);
+        printf("\n");
+        printf(i);
+        printf("\n");
+        profundidade(nos, a->dir, i);
+        printf(nos);
+        printf("\n");
+        printf(i);
+    }
+}
+
+int mesmos_nos(TNoA *a1, TNoA *a2) {
+    char *nos1 = NULL;
+    char *nos2 = NULL;
+    int aux = 0;
+    int *i= &aux;
+
+    nos1 = (char *) malloc(sizeof(char));
+    nos2 = (char *) malloc(sizeof(char));
+
+    profundidade(nos1, a1, i);
+    aux = 0;
+    printf(nos1);
+    profundidade(nos2, a2, i);
+    printf(nos2);
+
+    /* não chamei a função de ordenar ainda porque queria resolver o vetor primeiro */
+
+    return 1;
 }
 
 void imprime(TNoA *nodo, int tab) {
@@ -106,6 +148,8 @@ int main (void) {
     tam = strlen(entrada2);
     a2 = criaArvore(entrada2 , tam);
 
-    /*printf("%d", mesmos_nos(a1, a2)); */
+    int aaa = mesmos_nos(a1, a2);
+
+    printf("%d", aaa);
 }
 
