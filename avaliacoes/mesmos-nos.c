@@ -9,11 +9,6 @@ typedef struct noA {
     struct noA *dir;
 } TNoA;
 
-
-/*
- * Funcao deve retornar 1 caso as arvores tenham os mesmos nos (mesmo que em posicoes distintas), e 0 caso contrario
- */
-
 void bubbleSort(char* v, int n) {
   int i, j, aux;
   for(i = n-1; i > 0; i--) {
@@ -25,40 +20,51 @@ void bubbleSort(char* v, int n) {
   }
 }
 
-void profundidade(char* nos, TNoA* a, int *i) {
+void preencherVetor(char* nos, TNoA* a, int* i) {
     if (a!= NULL) {
         (*i)++;
-        nos = realloc(nos, (*i) * sizeof(char));
         nos[(*i)-1] = a->info;
-        profundidade(nos, a->esq, i);
-        printf(nos);
-        printf("\n");
-        printf(i);
-        printf("\n");
-        profundidade(nos, a->dir, i);
-        printf(nos);
-        printf("\n");
-        printf(i);
+        preencherVetor(nos, a->esq, i);
+        preencherVetor(nos, a->dir, i);
     }
 }
 
+void profundidade(TNoA* a, int* i) {
+    if (a!= NULL) {
+        (*i)++;
+        profundidade(a->esq, i);
+        profundidade(a->dir, i);
+    }
+}
+
+/*
+ * Funcao deve retornar 1 caso as arvores tenham os mesmos nos (mesmo que em posicoes distintas), e 0 caso contrario
+ */
+ 
 int mesmos_nos(TNoA *a1, TNoA *a2) {
-    char *nos1 = NULL;
-    char *nos2 = NULL;
-    int aux = 0;
-    int *i= &aux;
+    int i = 0;
 
-    nos1 = (char *) malloc(sizeof(char));
-    nos2 = (char *) malloc(sizeof(char));
+    profundidade(a1, &i);
+    char nos1[i];
+    i = 0;
+    preencherVetor(nos1,a1, &i);
+    bubbleSort(nos1,i);
 
-    profundidade(nos1, a1, i);
-    aux = 0;
-    printf(nos1);
-    profundidade(nos2, a2, i);
-    printf(nos2);
+    i = 0;
 
-    /* não chamei a função de ordenar ainda porque queria resolver o vetor primeiro */
+    profundidade(a2, &i);
+    char nos2[i];
+    i = 0;
+    preencherVetor(nos2,a2,&i);
+    bubbleSort(nos2,i);
 
+    if (sizeof(nos1) != sizeof(nos2)) return 0;
+
+    for(int c = 0; c < i; c++) {
+        if (nos1[c] != nos2[c]) {
+            return 0;
+        }
+    }
     return 1;
 }
 
@@ -147,9 +153,7 @@ int main (void) {
     scanf("%s", entrada2);
     tam = strlen(entrada2);
     a2 = criaArvore(entrada2 , tam);
-
-    int aaa = mesmos_nos(a1, a2);
-
-    printf("%d", aaa);
+    
+    printf("%d", mesmos_nos(a1, a2));
 }
 
