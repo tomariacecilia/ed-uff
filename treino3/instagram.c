@@ -134,7 +134,6 @@ int segue_mais_velho(TGrafo *g, int imprime) {
     TGrafo *pv1 = g;
     TGrafo *pv2 = NULL;
     TVizinho *resp = NULL;
-    int cont = 0;
 
     while (pv1 != NULL) {
         if((pv1->prim_vizinho) != NULL){
