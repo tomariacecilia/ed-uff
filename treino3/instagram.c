@@ -82,18 +82,22 @@ int seguidores(TGrafo *g, char *nome, int imprime) {
     while (pv1 != NULL) {
         if ((strcmp(pv1->nome, nome) != 0)) {
             resp = pv1->prim_vizinho;
-            while ((resp != NULL) && (resp->nome != nome)) {
+            while ((resp != NULL) && (strcmp(resp->nome, nome) != 0)) {
                 resp = resp->prox;
             }
-            if(resp->nome == nome){
+            if((resp != NULL) && (strcmp(resp->nome, nome) == 0)){
                 cont++;
                 if (imprime == 1) {
                     printf("%s ", pv1->nome);
                 }
-            } 
+            }
         }
         pv1 = pv1->prox;
     }
+    if (imprime == 1) {
+        printf("\n");
+    }
+
     return cont;
 }
 
@@ -133,13 +137,15 @@ int segue_mais_velho(TGrafo *g, int imprime) {
     int cont = 0;
 
     while (pv1 != NULL) {
-        resp = pv1->prim_vizinho;
-        pv2 = busca_vertice(g,resp->nome);
-        while ((resp != NULL) && (pv2->idade > pv1->idade)) {
-            resp = resp->prox;
-        }
-        if((resp == NULL) && (imprime == 1)){
-            printf("%s ", pv1->nome);
+        if((pv1->prim_vizinho) != NULL){
+            resp = pv1->prim_vizinho;
+            pv2 = busca_vertice(g,resp->nome);
+            while ((resp != NULL) && ((pv2->idade) > (pv1->idade))) {
+                resp = resp->prox;
+            }
+            if((resp == NULL) && (imprime == 1)){
+                printf("%s ", pv1->nome);
+            }
         }
         pv1 = pv1->prox;
     }
