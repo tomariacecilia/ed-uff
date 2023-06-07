@@ -92,26 +92,26 @@ void leftOuterJoin(char *nome_arq_dept, char *nome_arq_funcionarios, char *nome_
     TFuncionario *func;
 
     if (fileDept != NULL && fileFunc != NULL && fileResultado != NULL) {
-      dept = le_departamento(fileDept);
+        dept = le_departamento(fileDept);
         while (!feof(fileDept)) {
-          int temFunc = 0;
-          func = le_funcionario(fileFunc);
-          while (!feof(fileFunc)){
-            if (func->cod_dept==dept->cod_dept) {
-              temFunc = 1;
-              fprintf(fileResultado, "%d;%d;%s;%d;%s;\n", dept->cod_dept,dept->sala,dept->nome,func->cod_func,func->nome);
-            }
+            int temFunc = 0;
             func = le_funcionario(fileFunc);
-          }
-          if (temFunc==0) {
+            while (!feof(fileFunc)){
+                if (func->cod_dept==dept->cod_dept) {
+                    temFunc = 1;
+                    fprintf(fileResultado, "%d;%d;%s;%d;%s;\n", dept->cod_dept,dept->sala,dept->nome,func->cod_func,func->nome);
+                }
+                func = le_funcionario(fileFunc);
+            }
+            if (temFunc==0) {
             fprintf(fileResultado, "%d;%d;%s;0;;\n", dept->cod_dept,dept->sala,dept->nome);
-          }
-          rewind(fileFunc);
-          dept = le_departamento(fileDept);
+            }
+            rewind(fileFunc);
+            dept = le_departamento(fileDept);
         }
-      fclose(fileDept);
-      fclose(fileFunc);
-      fclose(fileResultado);
+        fclose(fileDept);
+        fclose(fileFunc);
+        fclose(fileResultado);
     } else printf("Erro ao abrir arquivo\n");
 }
 
