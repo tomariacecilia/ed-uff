@@ -84,7 +84,35 @@ void imprime_arquivo(char *name) {
 }
 
 void leftOuterJoin(char *nome_arq_dept, char *nome_arq_funcionarios, char *nome_arq_join) {
-    //TODO: Implementar essa função
+    FILE* fileDept = fopen(nome_arq_dept, "r");
+    FILE* fileFunc = fopen(nome_arq_funcionarios, "r");
+    FILE* fileResultado = fopen(nome_arq_join, "w");
+
+    TDepartamento *dept;
+    TFuncionario *func;
+
+    if (fileDept != NULL && fileFunc != NULL && fileResultado != NULL) {
+      dept = le_departamento(fileDept);
+        while (!feof(fileDept)) {
+          int temFunc = 0;
+          func = le_funcionario(fileFunc);
+          while (!feof(fileFunc)){
+            if (func->cod_dept==dept->cod_dept) {
+              temFunc = 1;
+              fprintf(fileResultado, "%d;%d;%s;%d;%s;\n", dept->cod_dept,dept->sala,dept->nome,func->cod_func,func->nome);
+            }
+            func = le_funcionario(fileFunc);
+          }
+          if (temFunc==0) {
+            fprintf(fileResultado, "%d;%d;%s;0;;\n", dept->cod_dept,dept->sala,dept->nome);
+          }
+          rewind(fileFunc);
+          dept = le_departamento(fileDept);
+        }
+      fclose(fileDept);
+      fclose(fileFunc);
+      fclose(fileResultado);
+    } else printf("Erro ao abrir arquivo\n");
 }
 
 int main() {
