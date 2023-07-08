@@ -61,6 +61,7 @@ int procura_cliente(FILE *dados, TCliente *cli, int endereco_inicial, int n_regi
             }
         } else return -1;
     }
+    return -1;
 }
 
 
@@ -79,7 +80,7 @@ int insere(int cod_cli, char *nome_cli, char *nome_arquivo_hash, char *nome_arqu
         TCompartimento *compartimento = le_compartimento(hash);
 
         if (compartimento->prox == -1){
-            fseek(hash,tamanho_compartimento() * h, SEEK_SET);
+            fseek(hash,tamanho_compartimento() * -1, SEEK_CUR);
             compartimento->prox = final;
             salva_compartimento(compartimento,hash);
             adiciona_cliente(dados,cliente(cod_cli,nome_cli,-1,1),final);
