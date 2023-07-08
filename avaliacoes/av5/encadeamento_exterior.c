@@ -40,13 +40,13 @@ int procura_cliente(FILE *dados, TCliente *cli, int endereco_inicial, int n_regi
             if (cliente->ocupado == 0) {
                 prox = cliente->prox;
                 cli->prox = prox;
-                fseek(dados, tamanho_cliente() * -1, SEEK_SET);
+                fseek(dados, tamanho_cliente() * -1, SEEK_CUR);
                 salva_cliente(cli,dados);
                 free(cliente);
                 return atual;
             }
             if (cliente->prox == -1) {
-                fseek(dados, tamanho_cliente() * -1, SEEK_SET);
+                fseek(dados, tamanho_cliente() * -1, SEEK_CUR);
                 cliente->prox = n_registros;
                 salva_cliente(cliente,dados);
                 fseek(dados, 0, SEEK_END);
@@ -59,7 +59,7 @@ int procura_cliente(FILE *dados, TCliente *cli, int endereco_inicial, int n_regi
                 atual = cliente->prox;
                 cliente = le_cliente(dados);
             }
-        } else return -11;
+        } else return -1;
     }
 }
 
@@ -83,22 +83,17 @@ int insere(int cod_cli, char *nome_cli, char *nome_arquivo_hash, char *nome_arqu
             compartimento->prox = final;
             salva_compartimento(compartimento,hash);
             adiciona_cliente(dados,cliente(cod_cli,nome_cli,-1,1),final);
+            endereco = compartimento->prox;
         } else {
             endereco = procura_cliente(dados, cliente(cod_cli,nome_cli,-1,1), compartimento->prox, final);
         }
 
         fclose(hash);
         fclose(dados);
-        
-        if (endereco == -11) {
-            return-1;
-        } else if (endereco ==-1) {
-            return compartimento->prox;
-        }
-
-        return endereco;
 
     }
+    
+    return endereco;
 }
 
 int main() {
